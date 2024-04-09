@@ -10,6 +10,7 @@ import com.example.shoppingmall.web.dto.ItemDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -56,24 +57,28 @@ public class ItemService {
     }
 
     @Transactional
-    public ItemDTO registerItem(ItemRegisterRequest itemRegisterRequest, MultipartFile file) throws Exception {
+    public ItemDTO registerItem(ItemRegisterRequest itemRegisterRequest) throws Exception {
         // 상품명 중복 체크
-        if (itemRepository.findByTitle(itemRegisterRequest.getTitle()).isPresent()) {
+        if (itemRepository.findByTitle(itemRegisterRequest.getTitle()).isPresent() &&
+                !itemRepository.findByTitle(itemRegisterRequest.getTitle()).isEmpty()) {
             throw new Exception("ITEM_ALREADY_EXISTS");
         }
+        log.info("registerItem service itemRegisterRequest :{}", itemRegisterRequest);
+
 
         Item item = itemRepository.save(Item.toEntity(itemRegisterRequest));
-
+        log.info("registerItem service item :{}", item);
         tagService.registerTag(item, itemRegisterRequest);
         log.info("tag save test");
 
         //로컬 이미지 저장 test
-        if (file != null) {
-            Image image = imageService.registerImage(file, item);
+        if (itemRegisterRequest.getFile() != null) {
+            Image image = imageService.registerImage(itemRegisterRequest.getFile(), item);
+            log.info("registerItem service image : {}", image.getImageName());
             item.updateImage(image);
         }
 
-        log.info("ItemService - register item, tag : {}", item);
+        log.info("ItemService - register item, tag : {}", item.getTitle());
 
         return ItemDTO.fromEntity(item);
     }
@@ -88,7 +93,7 @@ public class ItemService {
 
         tagService.updateTag(item, itemRegisterRequest);
         imageService.updateImage(itemId, file, item);
-        log.info("ItemService - update item, tag, image : {}", item);
+        log.info("ItemService - update item : {}", item.getTitle());
 
         return ItemDTO.fromEntity(item);
     }

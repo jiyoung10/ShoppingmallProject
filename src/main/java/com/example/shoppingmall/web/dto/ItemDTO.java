@@ -4,9 +4,11 @@ import com.example.shoppingmall.domain.entity.Item;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Column;
 
+@Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,7 +18,7 @@ public class ItemDTO {
     @Column(name = "content")
     private String content; // 상품 설명
     @Column(name = "price")
-    private int price; // 가격
+    private double price; // 가격
     @Column(name = "stock")
     private int stock; // 재고
     @Column(name = "isSoldOut")

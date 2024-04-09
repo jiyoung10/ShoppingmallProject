@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>로그인</title>
+  <style>
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    input[type="submit"] {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+<h1>로그인</h1>
+<form id="signinForm" action="/signin" method="post">
+<!--  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />-->
+  <label for="userName">아이디: </label>
+  <input type="text" id="userName" name="userName" required>
+
+  <label for="password">비밀번호: </label>
+  <input type="text" id="password" name="password" required> </br>
+
+  <input type="submit" value="로그인">
+
+</form>
+
+<script>
+  // 폼 서브밋 이벤트 리스너
+  // document.getElementById('signinForm').addEventListener('submit', function(event) {
+  //   event.preventDefault(); // 폼 서브밋 기본 동작 막기
+  //
+  //   // 로그인 요청을 보내는 AJAX 호출
+  //   var xhr = new XMLHttpRequest();
+  //   xhr.open('POST', '/signin');
+  //   xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+  //
+  //   // 폼 데이터 가져오기
+  //   var formData = {
+  //     userName: document.getElementById('userName').value,
+  //     password: document.getElementById('password').value
+  //   };
+  //
+  //   // 로그인 요청 보내기
+  //   xhr.onload = function() {
+  //     if (xhr.status === 200) {
+  //       var response = JSON.parse(xhr.responseText);
+  //       var token = response.token;
+  //
+  //       // 토큰을 쿠키에 저장
+  //       //document.cookie = "token=" + token + ";path=/";
+  //
+  //       // 로그인 성공 후 페이지 이동 등의 추가 작업 수행
+  //       // 예: window.location.href = "/home";
+  //     }
+  //       // 로그인 실패 처리
+  //       alert('로그인에 실패했습니다.');
+  //   };
+  //
+  //   xhr.send(JSON.stringify(formData));
+  // });
+</script>
+</body>
+</html>

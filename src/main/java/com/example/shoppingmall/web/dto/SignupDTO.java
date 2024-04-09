@@ -8,29 +8,34 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 
+@Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class SignupDTO {
-    @Column(name = "user_id")
-    private String userId;
+    @Column(name = "userName")
+    private String userName;
     @Column(name = "password")
     private String password;
     @Column(name = "name")
     private String name;
-    @Column(name = "phone_number")
+    @Column(name = "phoneNumber")
     private String phoneNumber;
     @Column(name = "email")
     private String email;
 
-    public static SignupDTO entityToDto(User user){
+    public static SignupDTO entityToUserDto(User user){
         return new SignupDTO(
-                user.getUserId(),
+                user.getUsername(),
                 user.getPassword(),
                 user.getName(),
                 user.getPhoneNumber(),
                 user.getEmail()
         );
+    }
+
+    public void encode(String password) {
+        this.password = password;
     }
 
 }

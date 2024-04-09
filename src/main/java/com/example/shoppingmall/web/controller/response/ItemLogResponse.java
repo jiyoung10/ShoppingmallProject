@@ -1,5 +1,6 @@
 package com.example.shoppingmall.web.controller.response;
 
+import com.example.shoppingmall.domain.entity.Image;
 import com.example.shoppingmall.domain.entity.Item;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,11 +17,13 @@ public class ItemLogResponse {
     @Column(name = "content")
     private String content; // 상품 설명
     @Column(name = "price")
-    private int price; // 가격
+    private double price; // 가격
     @Column(name = "stock")
     private int stock; // 재고
     @Column(name = "isSoldOut")
     private boolean isSoldOut; // 매진 여부
+
+    private Image image;
 
     public static ItemLogResponse EntityToDTO(Item item) {
         return new ItemLogResponse(
@@ -28,7 +31,8 @@ public class ItemLogResponse {
                 item.getContent(),
                 item.getPrice(),
                 item.getStock(),
-                item.isSoldOut()
+                item.isSoldOut(),
+                item.getImage()
         );
     }
 

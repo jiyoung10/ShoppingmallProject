@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>쇼핑몰 관리자 페이지</title>
+  <style>
+    .product {
+      display: inline-block; /* 각 상품 요소를 한 줄에 표시 */
+      margin-right: 10px; /* 각 상품 사이의 간격 설정 */
+      vertical-align: top; /* 세로 정렬을 위해 상단 정렬 설정 */
+    }
+    .product img {
+      width: 100px; /* 이미지 너비 설정 */
+      height: auto; /* 이미지 높이 자동 조정 */
+    }
+  </style>
+</head>
+<body>
+<h1>쇼핑몰 관리자 페이지</h1>
+<a th:text="${userInfo.getUserName()}"></a><a>님</a><br><br>
+<a sec:authentication="name"></a><a>님</a><br><br>
+<!--<a sec:authorize="isAuthenticated()" sec:authentication="name"></a><a>님</a><br><br>-->
+
+  <button type="button" onclick="location.href='/admin/register'">상품 등록</button>
+<button type="button" onclick="location.href='/'">로그아웃</button>
+<div id="products">
+  <h2>상품 목록</h2>
+  <div th:each="product : ${products}" class="product">
+    <img th:src="'/img/'+${product.image.getImageName()}" alt="Product Image">
+    <span th:text="${product.title + ' (' + product.price + '원)'}"></span>
+    <!-- 실제 쇼핑몰이라면 아래 버튼 대신 상품 상세페이지로 연결 -->
+    <button type="submit">자세히 보기</button>
+  </div>
+</div>
+</body>
+</html>

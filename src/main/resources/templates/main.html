@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>쇼핑몰 메인 페이지</title>
+    <style>
+        .product {
+            display: block; /* 각 상품 요소를 블록 요소로 설정하여 다른 줄에 배치 */
+            margin-bottom: 20px; /* 각 상품 사이의 간격 설정 */
+        }
+        .product img {
+            display: block; /* 이미지를 블록 요소로 설정하여 다른 줄에 배치 */
+            width: 100px; /* 이미지 너비 설정 */
+            height: auto; /* 이미지 높이 자동 조정 */
+            margin-bottom: 10px; /* 이미지 아래에 여백 추가 */
+        }
+        .product span {
+            display: block; /* 텍스트를 블록 요소로 설정하여 다른 줄에 배치 */
+        }
+        .product-container {
+            display: inline-block; /* 각 상품 구성을 한 줄에 표시 */
+            margin-right: 20px; /* 각 상품 구성 사이의 간격 설정 */
+            text-align: center; /* 상품 구성을 가로로 가운데 정렬 */
+        }
+    </style>
+</head>
+<body>
+<h1>쇼핑몰 메인 페이지</h1>
+<button type="button" onclick="location.href='/signup'">회원 가입</button>
+<button type="button" onclick="location.href='/signinForm'" >로그인</button>
+<div id="products">
+  <form action="/shop/search/{tag}" method="post"></form>
+  <h2>상품 목록</h2>
+  <div th:each="product : ${products}" class="product-container">
+  <div class="product">
+<!--    <img th:src="@{/img/${product.image.getImageName()}}" alt="Product Image">-->
+    <img th:src="'/img/'+${product.image.getImageName}" alt="Product Image">
+    <span th:text="${product.title}"></span>
+    <span th:text="${product.price + '원'}"></span>
+    <!-- 실제 쇼핑몰이라면 아래 버튼 대신 상품 상세페이지로 연결 -->
+    <button type="submit">자세히 보기</button>
+  </div>
+  </div>
+</div>
+</div>
+</body>
+</html>

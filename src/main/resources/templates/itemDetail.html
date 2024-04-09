@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>쇼핑몰</title>
+  <style>
+    .product {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+
+    #cart {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+<div id="products">
+  <h1>상품</h1>
+  <div th:each="product : ${products}" class="product">
+    <span th:text="${product.title + ' (' + product.price + '원)'}"></span>
+    <button th:attr="onclick='addToCart(' + ${product.price} + ')'">장바구니에 추가</button>
+  </div>
+</div>
+<div id="cart">
+  <h1>장바구니</h1>
+  <ul id="cartList">
+  </ul>
+  <button onclick="checkout()">결제하기</button>
+  <div id="totalPrice"></div>
+</div>
+
+<script>
+  let cart = [];
+
+  function addToCart(price) {
+    cart.push(price);
+    let li = document.createElement("li");
+    li.innerHTML = `상품 ${price}원`;
+    li.setAttribute("data-price", price);
+    li.onclick = removeFromCart;
+    document.getElementById("cartList").appendChild(li);
+  }
+
+  function removeFromCart(event) {
+    let price = parseInt(event.target.getAttribute("data-price"));
+    let index = cart.indexOf(price);
+    if (index > -1) {
+      cart.splice(index, 1);
+      document.getElementById("cartList").removeChild(event.target);
+    }
+  }
+
+  function checkout() {
+    let totalPrice = cart.reduce((acc, price) => acc + price, 0);
+    document.getElementById("totalPrice").innerHTML = `총 가격: ${totalPrice}원`;
+  }
+</script>
+</body>
+</html>

@@ -1,8 +1,7 @@
 package com.example.shoppingmall.domain.entity;
 
+import com.example.shoppingmall.domain.CategoryName;
 import com.example.shoppingmall.web.controller.request.ItemRegisterRequest;
-import com.example.shoppingmall.web.dto.ItemDTO;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,14 +16,26 @@ public class Item extends BaseTime{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "title")
     private String title; // 상품명
+    @Column(name = "content")
     private String content; // 상품 설명
-    private int price; // 가격
+    @Column(name = "price")
+    private double price; // 가격
+    @Column(name = "stock")
     private int stock; // 재고
+    @Column(name = "isSoldOut")
     private boolean isSoldOut; // 매진 여부
+    @Column(name = "category_id")
+    @Enumerated(EnumType.STRING)
+    private CategoryName categoryName; // 상품 종류
     @ManyToOne
     @JoinColumn(name = "image_id")
     private Image image; // 상품 이미지
+
+    @ManyToOne
+    @JoinColumn(name = "editorId")
+    private User user;
 
     private Item(String title, String content, int price, int stock, boolean isSoldOut){
         this.title = title;
@@ -42,6 +53,10 @@ public class Item extends BaseTime{
                 itemRegisterRequest.getStock(),
                 itemRegisterRequest.isSoldOut()
                 );
+    }
+
+    public void setCategoryName(CategoryName categoryName){
+        this.categoryName = categoryName;
     }
 
     public void updateImage(Image image) {

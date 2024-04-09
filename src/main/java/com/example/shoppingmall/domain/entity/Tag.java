@@ -1,6 +1,5 @@
 package com.example.shoppingmall.domain.entity;
 
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +14,7 @@ public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "tagName")
     private String tagName;
     @ManyToOne
     @JoinColumn(name = "item_id")

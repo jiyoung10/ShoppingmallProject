@@ -5,22 +5,33 @@ spring:
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
 
+  main:
+    allow-bean-definition-overriding: true
+
   jpa:
     show-sql: true
     generate-ddl: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
 
     properties:
       hibernate:
         format_sql: true
 
-    defer-datasource-initialization: true
+logging:
+  level:
+    org.hibernate.SQL: debug
+    root: info
+    com.example.shoppingmall: info
+    #org.springframework.security: debug
 
 jwt:
-  header: Authorization
-  secret: autyweorituwyerotiuweyrtoiuweyrtoweiurtywoeighdfsojkghsdfgsdofiguwyertouw #| base64 YWprbGdoc2Rma2xnanNkaGZnbGprc2RmZ2hsc2
-  tokenValidTime: 600 # 10 min
+  secret: secretKey2G312A3E224A78H51R6dfvnjhgSf3asD3N5KE23LaeE
+  tokenValidTime: 3600000 # 1시간
 
 upload:
-  path: C:\Users\zhscl\Desktop\imageUploadTest
+  path: "/Users/zhscl/Desktop/git/ShoppingmallProject/ShoppingmallProject/src/main/resources/static/img"
+
+iamport:
+  imp_key: ${IAM_REST_API_KEY}
+  imp_secret: ${IAM_SECRET_KEY}

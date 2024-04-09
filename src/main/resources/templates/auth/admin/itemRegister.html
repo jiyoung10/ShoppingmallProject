@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>상품 정보 및 이미지 등록</title>
+  <style>
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    input[type="submit"] {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+<h1>상품 정보 및 이미지 등록</h1>
+<form action="/admin/register" method="post" enctype="multipart/form-data">
+  <label for="title">상품명: </label>
+  <input type="text" id="title" name="title" required>
+
+  <label for="content">상세 설명: </label>
+  <input type="text" id="content" name="content" required>
+
+  <label for="price">가격(원): </label>
+  <input type="number" id="price" name="price" min="0" required>
+
+  <label for="stock">재고: </label>
+  <input type="number" id="stock" name="stock" min="0" required>
+
+  <label for="tag">키워드: </label>
+  <input type="text" id="tag" name="tag" required placeholder="ex) 가방">
+
+  <label for="file">이미지: </label>
+  <input type="file" id="file" name="file" accept="image/*" required>
+
+  <label for="category">카테고리: </label>
+  <select id="category" name="category">
+    <option value="DRESS">의류</option>
+    <option value="FURNITURE">가구</option>
+    <option value="ELECTRONICS">전자제품</option>
+    <option value="HOME_APPLIANCES">가전제품</option>
+    <option value="BOOKS">도서</option>
+    <option value="BEAUTY">뷰티</option>
+    <option value="TOYS">장난감</option>
+    <option value="SPORTS">스포츠</option>
+    <option value="GROCERIES">식품</option>
+    <option value="ACCESSORIES">액세서리</option>
+  </select>
+
+  <label for="isSoldOut">매진 여부:</label>
+  <input type="checkbox" id="isSoldOut" name="isSoldOut" value="true"></br></br>
+
+  <button type="submit" value="상품 등록">상품 등록</button>
+  <button type="button" onclick="location.href='/admin/main'">목록</button>
+
+</form>
+</body>
+</html>
